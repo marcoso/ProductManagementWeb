@@ -1,6 +1,9 @@
 # Product Management Webshop
 Webshop sample application using ASP.NET MVC 5, C#, SQL Server 2016 and Entity Framework, Bootstrap and JQuery.
 
+NOTE on database:
+To create the sample database please execute the script WebshopCreateDB.sql under the folder "ProductManagementWeb\DataLibrary\DB"
+
 More detailed technical and functional specification is present in the file "Design.docx" under the root folder of the application.
 
 # Sample screenshots
