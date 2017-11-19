@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="Self.ProductCategories" FromRole="Categories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Document" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ShippedDate" Type="DateTime" Precision="3" />
+    <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShipAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ShipCity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ShipRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShipPostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShipCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.ProductOrders" FromRole="Orders" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductNumber" />
+    </Key>
+    <Property Name="ProductNumber" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Categories" Relationship="Self.ProductCategories" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="Orders" Relationship="Self.ProductOrders" FromRole="Products" ToRole="Orders" />
+  </EntityType>
+  <Association Name="ProductCategories">
+    <End Role="Categories" Type="Self.Category" Multiplicity="*" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+  </Association>
+  <Association Name="ProductOrders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="WebshopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <AssociationSet Name="ProductCategories" Association="Self.ProductCategories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductOrders" Association="Self.ProductOrders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

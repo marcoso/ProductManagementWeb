@@ -1,0 +1,97 @@
+﻿@model ProductManagementWebSample.Models.ProductModel
+
+@{
+    ViewBag.Title = "Webshop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Product</h3>
+
+@using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("selectedDataStorage", (object)@ViewBag.SelectedDataStorage)
+    <div class="form-horizontal">
+        <hr class="list-header" />
+        <p>
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> @Html.ActionLink("Back to list", "Index", "Products")
+            @if (ViewBag.SelectedDataStorage == "db")
+            {
+                <button id="db-storage-btn" type="button" class="btn btn-primary pull-right storage-btn active" onclick="switchStorage()">Database storage</button>
+                <button id="memory-storage-btn" type="button" class="btn btn-primary pull-right storage-btn" onclick="switchStorage()">Memory storage</button>
+            }
+            else if (ViewBag.SelectedDataStorage == "memory")
+            {
+                <button id="db-storage-btn" type="button" class="btn btn-primary pull-right storage-btn" onclick="switchStorage()">Database storage</button>
+                <button id="memory-storage-btn" type="button" class="btn btn-primary pull-right storage-btn active" onclick="switchStorage()">Memory storage</button>
+            }
+
+        </p>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Product" class="btn btn-primary" />
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(ViewBag.SaveResultMessage))
+        {
+            //Success message displayed to the user
+            <div class="form-group">                
+                <div class="alert alert-success" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <strong>@ViewBag.SaveResultMessage</strong>
+                </div>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(ViewBag.InvalidOperationMessage))
+        {
+            //Warning message displayed to the user
+            <div class="form-group">
+                <div class="alert alert-warning" role="alert">                    
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <strong>@ViewBag.InvalidOperationMessage</strong>                    
+                </div>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(ViewBag.ErrorResultMessage))
+        {
+            //Error message displayed to the user
+            <div class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <strong>@ViewBag.ErrorResultMessage</strong>
+                </div>
+            </div>
+        }
+    </div>    
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

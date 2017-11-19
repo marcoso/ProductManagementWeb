@@ -1,0 +1,10 @@
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\DataLibrary.dll.config
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\DataLibrary.dll
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\DataLibrary.pdb
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\EntityFramework.dll
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\EntityFramework.SqlServer.dll
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\EntityFramework.xml
+C:\GIT\ProductManagementWebSample\DataLibrary\bin\Debug\EntityFramework.SqlServer.xml
+C:\GIT\ProductManagementWebSample\DataLibrary\obj\Debug\DataLibrary.dll
+C:\GIT\ProductManagementWebSample\DataLibrary\obj\Debug\DataLibrary.pdb
+C:\GIT\ProductManagementWebSample\DataLibrary\obj\Debug\DataLibrary.csprojResolveAssemblyReference.cache

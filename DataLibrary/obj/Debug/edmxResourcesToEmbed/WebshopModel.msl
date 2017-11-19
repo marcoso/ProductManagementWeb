@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebshopModelStoreContainer" CdmEntityContainer="WebshopEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="WebshopModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="WebshopModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="WebshopModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+          <ScalarProperty Name="ShipName" ColumnName="ShipName" />
+          <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+          <ScalarProperty Name="ShipCity" ColumnName="ShipCity" />
+          <ScalarProperty Name="ShipRegion" ColumnName="ShipRegion" />
+          <ScalarProperty Name="ShipPostalCode" ColumnName="ShipPostalCode" />
+          <ScalarProperty Name="ShipCountry" ColumnName="ShipCountry" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="WebshopModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductCategories" TypeName="WebshopModel.ProductCategories" StoreEntitySet="ProductCategories">
+      <EndProperty Name="Categories">
+        <ScalarProperty Name="Id" ColumnName="IdCategory" />
+      </EndProperty>
+      <EndProperty Name="Products">
+        <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProductOrders" TypeName="WebshopModel.ProductOrders" StoreEntitySet="ProductOrders">
+      <EndProperty Name="Orders">
+        <ScalarProperty Name="Id" ColumnName="IdOrder" />
+      </EndProperty>
+      <EndProperty Name="Products">
+        <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

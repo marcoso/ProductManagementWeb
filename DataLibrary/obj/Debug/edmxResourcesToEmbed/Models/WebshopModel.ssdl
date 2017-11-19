@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Document" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="ShippedDate" Type="datetime" />
+    <Property Name="ShipName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShipAddress" Type="nvarchar" MaxLength="200" />
+    <Property Name="ShipCity" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShipRegion" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShipPostalCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShipCountry" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductCategories">
+    <Key>
+      <PropertyRef Name="ProductNumber" />
+      <PropertyRef Name="IdCategory" />
+    </Key>
+    <Property Name="ProductNumber" Type="int" Nullable="false" />
+    <Property Name="IdCategory" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductOrders">
+    <Key>
+      <PropertyRef Name="ProductNumber" />
+      <PropertyRef Name="IdOrder" />
+    </Key>
+    <Property Name="ProductNumber" Type="int" Nullable="false" />
+    <Property Name="IdOrder" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductNumber" />
+    </Key>
+    <Property Name="ProductNumber" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ProductCategories_Categories">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+    <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductCategories">
+        <PropertyRef Name="IdCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategories_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductNumber" />
+      </Principal>
+      <Dependent Role="ProductCategories">
+        <PropertyRef Name="ProductNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOrders_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="ProductOrders" Type="Self.ProductOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductOrders">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOrders_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductOrders" Type="Self.ProductOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductNumber" />
+      </Principal>
+      <Dependent Role="ProductOrders">
+        <PropertyRef Name="ProductNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebshopModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductOrders" EntityType="Self.ProductOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ProductCategories_Categories" Association="Self.FK_ProductCategories_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="ProductCategories" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCategories_Products" Association="Self.FK_ProductCategories_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductCategories" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOrders_Orders" Association="Self.FK_ProductOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="ProductOrders" EntitySet="ProductOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOrders_Products" Association="Self.FK_ProductOrders_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductOrders" EntitySet="ProductOrders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ProductManagementWebSample.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Webshop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Search", "Products", FormMethod.Get))
+{
+    @Html.Hidden("selectedDataStorage", (object)@ViewBag.SelectedDataStorage)
+    <br />
+    <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span>  Product List</h3>
+    <hr class="list-header" />
+    <p>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @Html.ActionLink("Create New Product", "Index", "Product")            
+        @if (ViewBag.SelectedDataStorage == "db")
+        {
+            <button id="db-storage-btn" type="button" class="btn btn-primary pull-right storage-btn active" onclick="switchStorage()">Database storage</button>
+            <button id="memory-storage-btn" type="button" class="btn btn-primary pull-right storage-btn" onclick="switchStorage()">Memory storage</button>
+        }
+        else if (ViewBag.SelectedDataStorage == "memory")
+        {
+            <button id="db-storage-btn" type="button" class="btn btn-primary pull-right storage-btn" onclick="switchStorage()">Database storage</button>
+            <button id="memory-storage-btn" type="button" class="btn btn-primary pull-right storage-btn active" onclick="switchStorage()">Memory storage</button>
+        }
+        @*<input type="submit" value="Search" class="btn btn-info pull-right search-btn" />*@
+        <button type="submit" class="btn btn-info pull-right search-btn">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+    </p>
+    <br />
+
+    if (Model.Any())
+    {
+        <table class="table table-hover">
+            <tr class="list-header">
+                <th>
+                    <span>#</span> @Html.DisplayNameFor(model => model.ProductNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <span>$</span> @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <div class="form-group">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <strong>There is no products available</strong>
+            </div>
+        </div>
+    }
+}
